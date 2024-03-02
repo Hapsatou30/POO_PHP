@@ -4,7 +4,7 @@
 
 body {
     font-family: roboto;
-    background: url(./images/immeuble-bureaux-moderne-offre-vue-horizon-luxe-generee-par-ia_188544-26677.jpg);
+    background: url('immeuble-bureaux-moderne-offre-vue-horizon-luxe-generee-par-ia_188544-26677.jpg');
     background-size: cover;
     background-position: center;
     margin: 0;

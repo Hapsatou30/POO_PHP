@@ -10,6 +10,53 @@ $basededonnees = "poo_pdo";
 // Définir une variable pour stocker les messages d'erreur
 $erreur = "";
 
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['connecter'])) {
+    try {
+        // Connexion à la base de données avec MySQLi
+        $connexion = new mysqli($serveur, $utilisateur, $motdepasse, $basededonnees);
+
+        // Vérification de la connexion
+        if ($connexion->connect_error) {
+            die("Erreur de connexion : " . $connexion->connect_error);
+        }
+
+                // Récupérer les données du formulaire
+        $email = isset($_POST['email']) ? $_POST['email'] : '';
+        $motdepasse = isset($_POST['motdepasse']) ? $_POST['motdepasse'] : '';
+
+        // Vérifier si les champs email et motdepasse ne sont pas vides
+        if(empty($email) || empty($motdepasse)) {
+            header('location: index.php?error=veuillez saisir votre email et mot de passe');
+            exit;
+        }
+
+        // Préparer et exécuter la requête SQL de vérification
+        $stmt = $connexion->prepare("SELECT * FROM admin WHERE email=? AND motdepasse=?");
+        $stmt->bind_param("ss", $email, $motdepasse);
+        $stmt->execute();
+        $resultat = $stmt->get_result();
+
+        if ($resultat->num_rows > 0) {
+            // Utilisateur trouvé, connectez l'utilisateur
+            session_start();
+            $_SESSION['email'] = $email;
+
+            // Récupérer les informations de l'utilisateur
+            $utilisateur = $resultat->fetch_assoc();
+            $_SESSION['logged'] = true;
+            
+            header('Location: accueil.php'); // Redirigez l'utilisateur vers la page d'accueil après la connexion
+            exit;
+        } 
+
+        // Fermer la connexion
+        $stmt->close();
+        $connexion->close();
+            }catch (Exception $e) {
+                echo "Erreur de connexion : " . $e->getMessage();
+            }
+}
+
 // Vérifier si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['charger'])) {
     try {
@@ -20,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['charger'])) {
         if ($connexion->connect_error) {
             die("Erreur de connexion : " . $connexion->connect_error);
         }
+        
 
         // Récupérer les données du formulaire
         $nom1 = $_POST['nom'];
