@@ -1,6 +1,4 @@
-<?php
-                            require_once "config.php";     
-                    ?>  
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,11 +10,12 @@
 
 </head>
 <body>
+
    <div class="container" style="width: 25%;">
     
    <div class="formulaire">
    <h1>Connexion</h1>
-    <form action="index.php" method="post">
+    <form action="config.php" method="post">
         <input type="email" id="email" name="email" placeholder="Email" required><br>
         <input type="password" id="motdepasse" name="motdepasse" placeholder="Mot de passe" required><br>
         <input type="submit" name="connecter" value="CONNECTER">
