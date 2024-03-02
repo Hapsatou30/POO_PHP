@@ -12,7 +12,7 @@
 
 </head>
 <body>
-   <div class="container">
+   <div class="container" style="width: 25%;">
     
    <div class="formulaire">
    <h1>Connexion</h1>
