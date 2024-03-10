@@ -47,6 +47,7 @@
                         <input type="text" name="message" placeholder="Votre Message"> <br> <br>
                         <input type="submit" name="charger" > <br> <br>
                     </form>
+                </div>
     </main>
 
 </body>
